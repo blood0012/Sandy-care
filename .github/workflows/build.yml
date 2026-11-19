@@ -24,10 +24,10 @@ jobs:
         with:
           gradle-version: '7.5'
 
-      - name: Build APK with correct version
+      - name: Build APK forcefully
         run: |
           cd SandyCareProject
-          gradle assembleDebug
+          gradle assembleDebug --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
