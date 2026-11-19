@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1065713939522",
+    "project_id": "sandycare-f96f2",
+    "storage_bucket": "sandycare-f96f2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1065713939522:android:20b05ca7ac66beb977e9db",
+        "android_client_info": {
+          "package_name": "sandy.care"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKGfywIrtg5r11BGkHUsGkygesi_Qg7YY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
