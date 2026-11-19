@@ -19,15 +19,18 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Build APK using standard commands
+      - name: Build APK with correct path
         run: |
-          export JAVA_HOME=$JAVA_HOME
-          # التحقق من وجود ملفات المشروع وبناء التطبيق
-          if [ -f "gradlew" ]; then
-            chmod +x gradlew
-            ./gradlew assembleDebug
+          # التحقق من مكان وجود ملف الإعدادات وبناء المشروع بناءً عليه
+          if [ -f "settings.gradle" ] || [ -f "settings.gradle.kts" ]; then
+            gradle assembleDebug
+          elif [ -d "Sandy-care" ]; then
+            cd Sandy-care
+            gradle assembleDebug
           else
-            # إذا لم يكن gradlew موجوداً، نقوم ببنائه بالأداة الافتراضية
+            # البحث التلقائي عن المجلد الذي يحتوي على بناء أندرويد
+            DIR=$(find . -name "build.gradle" -maxdepth 3 | head -n 1 | xargs dirname)
+            cd $DIR
             gradle assembleDebug
           fi
 
@@ -35,4 +38,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: SandyCare-APK
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: '**/build/outputs/apk/debug/app-debug.apk'
