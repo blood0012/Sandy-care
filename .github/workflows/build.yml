@@ -1,4 +1,4 @@
-name: Build Android APK Stable
+name: Build Android APK Debug Mode
 
 on:
   push:
@@ -24,18 +24,14 @@ jobs:
         with:
           gradle-version: '7.5'
 
-      - name: Run Clean and Build
+      - name: Build with Full Info Logs
         run: |
           cd SandyCareProject
-          gradle wrapper --gradle-version 7.5
           chmod +x gradlew || true
-          ./gradlew clean build -x test
+          ./gradlew assembleDebug --info
 
-      - name: Upload APK Artifact
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: SandyCare-App-Release
-          path: |
-            SandyCareProject/app/build/outputs/apk/debug/*.apk
-            SandyCareProject/app/build/outputs/apk/release/*.apk
-            **/build/outputs/apk/**/*.apk
+          name: SandyCare-APK
+          path: '**/build/outputs/apk/debug/*.apk'
