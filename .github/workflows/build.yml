@@ -24,9 +24,10 @@ jobs:
         with:
           gradle-version: '7.5'
 
-      - name: Build APK Direct
+      - name: Build APK inside SandyCareProject
         run: |
-          gradle assembleDebug
+          cd SandyCareProject
+          ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
