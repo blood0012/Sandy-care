@@ -1,4 +1,4 @@
-name: Build Android APK Smart & Force
+name: Build Android APK Stable
 
 on:
   push:
@@ -24,17 +24,18 @@ jobs:
         with:
           gradle-version: '7.5'
 
-      - name: Force Smart Build and Generate APK
+      - name: Run Clean and Build
         run: |
           cd SandyCareProject
-          # توليد ملفات التشغيل تلقائياً لضمان عدم فقدانها
           gradle wrapper --gradle-version 7.5
-          chmod +x gradlew
-          # محاولة البناء مع تجاوز التحذيرات وإظهار التتبع عند الخطأ
-          ./gradlew assembleDebug --stacktrace --continue
+          chmod +x gradlew || true
+          ./gradlew clean build -x test
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: SandyCare-Final-APK
-          path: '**/build/outputs/apk/debug/app-debug.apk'
+          name: SandyCare-App-Release
+          path: |
+            SandyCareProject/app/build/outputs/apk/debug/*.apk
+            SandyCareProject/app/build/outputs/apk/release/*.apk
+            **/build/outputs/apk/**/*.apk
