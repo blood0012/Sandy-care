@@ -24,9 +24,10 @@ jobs:
         with:
           gradle-version: '7.5'
 
-      - name: Build APK inside SandyCareProject
+      - name: Generate Wrapper and Build APK
         run: |
           cd SandyCareProject
+          gradle wrapper --gradle-version 7.5
           ./gradlew assembleDebug
 
       - name: Upload APK
